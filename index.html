@@ -15,45 +15,7 @@
 <body>
     <h1>The Psychic Game</h1>
     <p id="game"></p>
-    <script>
-        //Var needed for this code
-        var win = 0;
-        var lose = 0;
-        var i = 10;
-        var result = random_character();
-        //Randon letter genda
-        function random_character() {
-            var chars = "abcdefghijklmnopqurstuvwxyz";
-            return chars.substr(Math.floor(Math.random() * 26), 1);
-        }
-        //print on html page and log it
-        var guessE1 = document.getElementById("game")
-        guessE1.textContent = result;
-        console.log(result);
 
-        //user input 10 letters
-        document.onkeyup = function(event) {
-            var userChoice = event.key
-                //if guess is correct
-            if (userChoice === result) {
-                alert("Correct")
-                win++;
-            } else {
-                //if guess is wrong and sub one guess
-                alert("Incorrect")
-                i--;
-                console.log(i);
-            }
-            if (i === 0) {
-                alert("Game over")
-                lose++;
-            }
-
-        }
-
-        //check if guess choice is correct
-        //add point to a Win if correct and a Loses if incorrect
-    </script>
 
 </body>
 
