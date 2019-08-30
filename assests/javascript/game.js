@@ -1,45 +1,85 @@
-    //Var needed for this code
-    var win = 0;
-    var lose = 0;
-    var i = 10;
-    var result = random_character();
-    //Randon letter genda
-    var chars = "abcdefghijklmnopqurstuvwxyz";
+var alphabet = ["a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "x",
+    "y",
+    "z"
+];
+//Varible needed to code
+var win = 0;
+var lose = 0;
+var left = 9;
 
-    function random_character() {
-        return chars.substr(Math.floor(Math.random() * 26), 1);
+var currentGuess = [];
+var compLetter;
+
+//rand letter gen.
+var randLetter = function() {
+    compLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+};
+//Current guesses
+var soFar = function() {
+    document.getElementById("guesses").innerHTML = "Guesses so far: " + currentGuess.join(",");
+};
+//Number of guesses left
+var guessesLeft = function() {
+    document.getElementById("left").innerHTML = "Guesses Left: " + left;
+};
+//clear the text
+function emptyText() {
+    currentGuess = [];
+}
+//Make a new game
+var newGame = function() {
+        currentGuess;
+        left = 9;
+        randLetter();
+        guessesLeft();
+        emptyText();
 
     }
-    //reset the rand letter
-    function reset() {
-        random_character();
-        return result;
-    }
-    //print on html page and log it
-    var guessE1 = document.getElementById("game")
-    guessE1.textContent = result;
-    console.log(result);
-
-    //user input 10 letters
-    document.onkeyup = function(event) {
-        var userChoice = event.key
-            //if guess is correct
-        if (userChoice === result) {
-            alert("Correct")
-            console.log(result);
-            win++;
-            reset();
+    //user input code.
+document.onkeyup = function(event) {
+    var userGuess = event.key;
+    //add guess to array
+    currentGuess.push(userGuess);
+    soFar();
+    guessesLeft();
+    //if user has any guesses
+    if (left > 0) {
+        //if user is right
+        if (userGuess == compLetter) {
+            wins++;
+            document.getElementById("wins").innerHTML = "Wins:" + win;
+            newGame();
+            //if user is wrong
         } else {
-            //if guess is wrong and sub one guess
-            alert("Incorrect")
-            i--;
+            left--;
         }
-        //if user is out of guesses
-        if (i === 0) {
-            alert("Game over")
-            lose++;
-        }
+        //out of guesses
+    } else if (left == 0) {
+        losses++;
+        document.getElementById("losses").innerHTML = "Lose:" + lose;
+        newGame();
     }
 
-    //check if guess choice is correct
-    //add point to a Win if correct and a Loses if incorrect
+};
